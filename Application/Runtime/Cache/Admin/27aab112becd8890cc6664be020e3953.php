@@ -1,0 +1,74 @@
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>添加管理员</title>
+    <link href="/drmall/Public/admin/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="/drmall/Public/admin/css/select.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="/drmall/Public/admin/css/content_h.css" />
+    <script type="text/javascript" src="/drmall/Public/admin/js/jquery.js"></script>
+    <script type="text/javascript" src="/drmall/Public/admin/layer/layer.js"></script>
+    <script type="text/javascript" src="/drmall/Public/admin/js/jquery.idTabs.min.js"></script>
+    <script type="text/javascript" src="/drmall/Public/admin/js/select-ui.min.js"></script>
+    <script type="text/javascript" src="/drmall/Public/admin/editor/kindeditor.js"></script>
+
+    <script type="text/javascript">
+        KE.show({
+            id : 'content7',
+            cssPath : './index.css'
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function(e) {
+            $(".select1").uedSelect({
+                width : 345
+            });
+            $(".select2").uedSelect({
+                width : 167
+            });
+            $(".select3").uedSelect({
+                width : 100
+            });
+        });
+    </script>
+</head>
+<body>
+<div class="container">
+    <div class="public-nav">您当前的位置：<a>管理首页</a>><a>管理员管理</a></div>
+    <div class="public-content">
+        <div class="public-content-header">
+            <h3 style="display: inline-block;">管理组列表</h3>
+        </div>
+        <div class="public-content-cont">
+            <form>
+                <?php $i=1; function showTree($tree,$i,$group_id){ if($i==1){ echo "<table class='public-cont-table'>"; }else{ echo "<table>"; } foreach($tree as $k=>$vo){ echo "<tr><td>"; echo "$vo[title]<input type='checkbox' value='$vo[id]' name='rule_id[]'"; if( group_id2rule($group_id,$vo[id])){ echo "checked"; } echo " /> "; echo "</td>"; echo "<td>"; if($vo[childs]){ showTree($vo[childs],$i,$group_id); } echo "</td></tr>"; } echo "</table>"; $i++; } showTree($tree,$i,$group_id); ?>
+                <input type="BUTTON" value="确定" onclick="dosubmit()">
+            </form>
+            <script>
+                //当点击登录按钮触发登录事件
+                function dosubmit(){
+                    $.ajax({
+                        url:"<?php echo U('Auth/allotAuth');?>",
+                        data:$("form").serialize()+"&group_id=<?php echo ($_GET[group_id]); ?>&allot=1",
+                        type:'post',
+                        dataType:'json',
+                        success:function(res){
+                            layer.msg(res.info,{icon:1,time:2000});
+
+                        },
+                        error:function(xhr,stataus,response){
+                        },
+                        timeout:2000,
+                        async:true	,
+                        cache:false
+                    })
+                }
+
+
+
+            </script>
+        </div>
+    </div>
+</div>
+</body>
+</html>

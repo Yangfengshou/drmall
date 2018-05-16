@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>添加轮播图</title>
+    <link href="__PUBLIC__/admin/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="__PUBLIC__/admin/css/select.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="__PUBLIC__/home/js/jquery.js"></script>
+</head>
+<body>
+<div class="place">
+    <span>位置:添加轮播图</span>
+    <ul class="placeul">
+        <li><a href="#">首页</a></li>
+        <li><a href="{:U('banner')}">商城管理</a></li>
+        <li><a href="{:U('banner_add')}">添加轮播图</a></li>
+    </ul>
+</div>
+<div class="formbody">
+    <div id="usual1" class="usual">
+        <div id="tab1" class="tabson">
+            <form action="{:U('Mall/myAdd')}" method="post" enctype="multipart/form-data">
+                <ul class="forminfo">
+                    <li><label>bannerName<b>*</b></label><input id="name" name="name" type="text" class="dfinput" placeholder="轮播图别名"  style="width:342px;"/></li>
+                    <li><label>Pic<b>*</b></label><input name="pic" id="file" type="file" onchange="add()"/></li>
+                    <li><label>Pic-show<b>*</b></label><img src="" id='show' style="width:120px;height:40px;"></li>
+                    <li><label>&nbsp;</label><input name="dosubmit" id="dosubmit" type="submit" class="btn" value="确认添加"/></li>
+                </ul>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    function add () {
+        var r= new FileReader();
+        f=document.getElementById('file').files[0];
+        r.readAsDataURL(f);
+        r.onload=function  (e) {
+            document.getElementById('show').src=this.result;
+        }
+    }
+</script>
+</html>

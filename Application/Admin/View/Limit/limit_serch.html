@@ -1,0 +1,49 @@
+<table class="tablelist" >
+    <thead>
+    <tr>
+        <th>编号</th>
+        <th>权限名称</th>
+        <th>权限规则</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <form method="post">
+        <foreach name="auth_arr" item="val">
+            <input type="hidden" id="inp" value="{$val.id}"/>
+            <tr>
+                <td>{$val[id]}</td>
+                <if condition="$val[menu_pid] eq 0">
+                    <td style="color: red;font-size: 14px">{$val[title]}</td>
+                    <td style="color: red">{$val[name]}</td>
+                    <else/>
+                    <td>{$val[title]}</td>
+                    <td>{$val[name]}</td>
+                </if>
+
+                <td><a href="{:U('limit_add',array('auth_id'=>$val[id]))}" class="tablelink"><img src="__PUBLIC__/admin/images/integral-left-li-p2.gif"/>添加</a> |
+                    <a href="{:U('limit_edit',array('auth_id'=>$val[id]))}" class="tablelink" id="edit"><img src="__PUBLIC__/admin/images/integral-left-li-p8.gif"/>编辑</a> |
+                    <a href="javascript:;" class="tablelink1" data-id="{$val.id}" ><img src="__PUBLIC__/admin/images/integral-left-li-p7.gif"/> 删除</a></td>
+            </tr>
+        </foreach>
+    </form>
+    </tbody>
+</table>
+<script>
+    $(function(){
+        $('.tablelink1').click(function(){
+            var  id=$(this).val();
+            layer.confirm('确定要删除吗？',{btn:['确定','取消'] },function(){
+                $.post("{:U('Limit/limit_delt')}","auth_id="+id,function(data){
+                    if(data['status']==1){
+                        layer.msg(data['info'],{icon: 5});
+                        location.href="{:U('Limit/limit_list')}";
+                    }else{
+                        layer.msg(data['info'],{icon: 6});
+                    }
+                },'json')
+            })
+        })
+    })
+</script>
+

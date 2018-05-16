@@ -1,0 +1,330 @@
+<!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>家用电器</title>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/home/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/home/css/page.css" />
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/home/css/shopping-mall-index.css" />
+    <script type="text/javascript" src="__PUBLIC__/home/js/jquery.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/home/js/zhonglin.js"></script>
+    </head>-->
+<title>家用电器</title>
+
+<!--内容开始-->
+<!--筛选结果-->
+<!--<div class="screening-results w1200">
+    <p class="tiao">找到共 233 条</p>
+    <div class="results">
+        <p class="re-p1 f-l">
+            全部结果：零食 > <span>品牌：三只松鼠　X　</span>　>
+        </p>
+        <div class="re-search f-l">
+            <input type="text" placeholder="三只松鼠" class="f-l" />
+            <button></button>
+            <div style="clear:both;"></div>
+        </div>
+        <p class="re-p2 f-r">
+            <a href="#">清空筛选条件</a>
+        </p>
+        <div style="clear:both;"></div>
+    </div>
+</div>-->
+<!--品牌-->
+<!--<div class="sj-brand">
+    <div class="sj-br-l f-l">
+        <img src="__PUBLIC__/home/images/sj-pingpai-tu.gif" />
+    </div>
+    <div class="sj-br-m f-l">
+        <h3>三只松鼠旗舰店</h3>
+        <p>三只松鼠，互联网坚果销量冠军品牌，致力于生产天然新鲜、非过度加工的健康食品</p>
+    </div>
+    <div class="sj-br-r f-r">
+        <a href="#">进店逛逛<br />></a>
+    </div>
+    <div style="clear:both;"></div>
+</div>-->
+<layout name="Layout/layout"/>
+<!--品牌热销-->
+<div class="brand-sales">
+    <dl>
+        <dt>所有商品</dt>
+        <dd>
+            <foreach name="catename1" item="v1">
+                <a href="#" class="catename" data-id="{$v1[cate_id]}">{$v1.cate_name}</a>
+            </foreach>
+        </dd>
+        <div style="clear:both;"></div>
+    </dl>
+    <dl style="border-bottom:none;" id="shop_1">
+        <dt>大家都在选</dt>
+        <dd>
+            <a href="#">坚果礼品</a>
+            <a href="#">碧根果</a>
+            <a href="#">松子</a>
+            <a href="#">夏威夷果</a>
+            <a href="#">核桃</a>
+            <a href="#">葡萄干</a>
+            <a href="#">花生</a>
+            <a href="#">豆类制品</a>
+            <a href="#">杏仁</a>
+            <a href="#">枣类</a>
+            <a href="#">瓜子</a>
+            <a href="#">其他坚果</a>
+        </dd>
+        <div style="clear:both;"></div>
+    </dl>
+</div>
+
+<!--内容↓↑-->
+<div class="shop-page-con w1200">
+    <div class="shop-pg-left f-l" style="width:215px">
+        <div class="shop-left-buttom" style="margin-top:0;">
+            <div class="sp-tit1">
+                <h3>商品推荐</h3>
+            </div>
+            <ul class="shop-left-ul">
+                <!--商品推荐开始  4个-->
+                <li>
+                    <div class="li-top">
+                        <a href="#" class="li-top-tu"><img src="__PUBLIC__/home/images/sp-con-r-tu.gif" /></a>
+                        <p class="jiage"><span class="sp1">￥109</span><span class="sp2">￥209</span></p>
+                    </div>
+                    <p class="miaoshu">德国原装进口Wurenbacher瓦伦冰黑啤5L/桶</p>
+                    <div class="li-md">
+                        <div class="md-l f-l">
+                            <p class="md-l-l f-l" ap="">1</p>
+                            <div class="md-l-r f-l">
+                                <a href="JavaScript:;" class="md-xs" at="">∧</a>
+                                <a href="JavaScript:;" class="md-xx" ab="">∨</a>
+                            </div>
+                            <div style="clear:both;"></div>
+                        </div>
+                        <div class="md-r f-l">
+                            <button class="md-l-btn1">立即购买</button>
+                            <button class="md-l-btn2">加入购物车</button>
+                        </div>
+                        <div style="clear:both;"></div>
+                    </div>
+                    <p class="pingjia">88888评价</p>
+                    <p class="weike">微克宅购自营</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="shop-pg-right f-r">
+        <div class="shop-right-cmp" style="margin-top:0;">
+            <ul class="shop-cmp-l f-l">
+                <li class="current"><a href="#">综合 ↓</a></li>
+                <li><a href="#">销量 ↓</a></li>
+                <li><a href="#">新品 ↓</a></li>
+                <li><a href="#">评价 ↓</a></li>
+                <div style="clear:both;"></div>
+            </ul>
+            <div class="shop-cmp-m f-l">
+                <span>价格</span><input type="text" /><span>-</span><input type="text" />
+            </div>
+            <div class="shop-cmp-r f-l">
+                <ul class="f-l">
+                    <li>
+                        <input type="checkbox" name="hobby" value=""/>
+                        <span>包邮</span>
+                    </li>
+                    <li>
+                        <input type="checkbox" name="hobby" value=""/>
+                        <span>进口</span>
+                    </li>
+                    <li>
+                        <input type="checkbox" name="hobby" value=""/>
+                        <span>仅显示有货</span>
+                    </li>
+                    <li>
+                        <input type="checkbox" name="hobby" value=""/>
+                        <span>满赠</span>
+                    </li>
+                    <li>
+                        <input type="checkbox" name="hobby" value=""/>
+                        <span>满减</span>
+                    </li>
+                    <div style="clear:both;"></div>
+                </ul>
+                <button>确定</button>
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+        <div class="shop-right-con">
+            <ul class="shop-ul-tu shop-ul-tu1"  id="shop_2">
+                <!--商品开始位置  一行4个  3行-->
+
+                <li>
+                    <div class="li-top">
+                        <a href="#" class="li-top-tu"><img src="__PUBLIC__/home/images/sp-con-r-tu.gif" /></a>
+                        <p class="jiage"><span class="sp1">￥109</span><span class="sp2">￥209</span></p>
+                    </div>
+                    <p class="miaoshu">德国原装进口Wurenbacher瓦伦冰黑啤5L/桶</p>
+                    <div class="li-md">
+                        <div class="md-l f-l">
+                            <p class="md-l-l f-l" ap="">1</p>
+                            <div class="md-l-r f-l">
+                                <a href="JavaScript:;" class="md-xs" at="">∧</a>
+                                <a href="JavaScript:;" class="md-xx" ab="">∨</a>
+                            </div>
+                            <div style="clear:both;"></div>
+                        </div>
+                        <div class="md-r f-l">
+                            <button class="md-l-btn1">立即购买</button>
+                            <button class="md-l-btn2">加入购物车</button>
+                        </div>
+                        <div style="clear:both;"></div>
+                    </div>
+                    <p class="pingjia">88888评价</p>
+                    <p class="weike">微克宅购自营</p>
+                </li>
+                <li>
+                    <div class="li-top">
+                        <a href="#" class="li-top-tu"><img src="__PUBLIC__/home/images/sp-con-r-tu.gif" /></a>
+                        <p class="jiage"><span class="sp1">￥109</span><span class="sp2">￥209</span></p>
+                    </div>
+                    <p class="miaoshu">德国原装进口Wurenbacher瓦伦冰黑啤5L/桶</p>
+                    <div class="li-md">
+                        <div class="md-l f-l">
+                            <p class="md-l-l f-l" ap="">1</p>
+                            <div class="md-l-r f-l">
+                                <a href="JavaScript:;" class="md-xs" at="">∧</a>
+                                <a href="JavaScript:;" class="md-xx" ab="">∨</a>
+                            </div>
+                            <div style="clear:both;"></div>
+                        </div>
+                        <div class="md-r f-l">
+                            <button class="md-l-btn1">立即购买</button>
+                            <button class="md-l-btn2">加入购物车</button>
+                        </div>
+                        <div style="clear:both;"></div>
+                    </div>
+                    <p class="pingjia">88888评价</p>
+                    <p class="weike">微克宅购自营</p>
+                </li>
+                <li style="margin-right:0;">
+                    <div class="li-top">
+                        <a href="#" class="li-top-tu"><img src="__PUBLIC__/home/images/sp-con-r-tu.gif" /></a>
+                        <p class="jiage"><span class="sp1">￥109</span><span class="sp2">￥209</span></p>
+                    </div>
+                    <p class="miaoshu">德国原装进口Wurenbacher瓦伦冰黑啤5L/桶</p>
+                    <div class="li-md">
+                        <div class="md-l f-l">
+                            <p class="md-l-l f-l" ap="">1</p>
+                            <div class="md-l-r f-l">
+                                <a href="JavaScript:;" class="md-xs" at="">∧</a>
+                                <a href="JavaScript:;" class="md-xx" ab="">∨</a>
+                            </div>
+                            <div style="clear:both;"></div>
+                        </div>
+                        <div class="md-r f-l">
+                            <button class="md-l-btn1">立即购买</button>
+                            <button class="md-l-btn2">加入购物车</button>
+                        </div>
+                        <div style="clear:both;"></div>
+                    </div>
+                    <p class="pingjia">88888评价</p>
+                    <p class="weike">微克宅购自营</p>
+                </li>
+                <!--<li style="margin-right:0;">
+                    <div class="li-top">
+                        <a href="#" class="li-top-tu"><img src="__PUBLIC__/home/images/sp-con-r-tu.gif" /></a>
+                        <p class="jiage"><span class="sp1">￥109</span><span class="sp2">￥209</span></p>
+                    </div>
+                    <p class="miaoshu">德国原装进口Wurenbacher瓦伦冰黑啤5L/桶</p>
+                    <div class="li-md">
+                        <div class="md-l f-l">
+                            <p class="md-l-l f-l" ap="">1</p>
+                            <div class="md-l-r f-l">
+                                <a href="JavaScript:;" class="md-xs" at="">∧</a>
+                                <a href="JavaScript:;" class="md-xx" ab="">∨</a>
+                            </div>
+                            <div style="clear:both;"></div>
+                        </div>
+                        <div class="md-r f-l">
+                            <button class="md-l-btn1">立即购买</button>
+                            <button class="md-l-btn2">加入购物车</button>
+                        </div>
+                        <div style="clear:both;"></div>
+                    </div>
+                    <p class="pingjia">88888评价</p>
+                    <p class="weike">微克宅购自营</p>
+                </li>-->
+                <div style="clear:both;"></div>
+            </ul>
+
+            <!--分页-->
+            <!--<div class="paging">
+                <div class="pag-left f-l">
+                    <a href="#" class="about left-r f-l"><</a>
+                    <ul class="left-m f-l">
+                        <li><a href="#">1</a></li>
+                        <li class="current"><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#">6</a></li>
+                        <li><a href="#">...</a></li>
+                        <li><a href="#">100</a></li>
+                        <div style="clear:both;"></div>
+                    </ul>
+                    <a href="#" class="about left-l f-l">></a>
+                    <div style="clear:both;"></div>
+                </div>
+                <div class="pag-right f-l">
+                    <div class="jump-page f-l">
+                        到第<input type="text" />页
+                    </div>
+                    <button class="f-l">确定</button>
+                    <div style="clear:both;"></div>
+                </div>
+                <div style="clear:both;"></div>
+            </div>-->
+        </div>
+    </div>
+
+    <div style="clear:both;"></div>
+</div>
+<!--JQ-->
+<script>
+    //分页
+    function getInputPage() {
+        var page = $("#page-num").val();
+        var page_url = decodeURI($("#page-submit").attr("data-page"));
+        page_url = page_url.replace('[PAGE]', page);
+        repage(page_url);
+        return false;
+    }
+    //分页
+    function repage(url) {
+        if(typeof url == 'undefined') url="{:U('',array('p'=>$_GET['p']))}";
+        $.post(url,function(data){
+            $('#shop_2').html(data);
+        });
+    }
+    //商品
+    $(document).on('click','.goodsname',function() {
+        var _this = this;
+        num=$(_this).data('pid')//定义一个全局变量  把获得到的pid的值赋值给它
+        $.post("{:U('Index/shop_2')}",{"cate_pid" :num},function(data){
+            $("#shop_2").html(data);
+        })
+    })
+    //换页
+    $(document).on('click','.page a',function() {
+        var url=this.href
+        $.post(url,{"cate_pid" :num},function(res){
+            $('#shop_2').html(res);
+        })
+        return false;
+    })
+    //分类
+    $(document).on('click','.catename',function() {
+        var _this = this;
+        $.post("{:U('Index/shop_1')}",{"cate_id" :$(_this).data('id')},function(data){
+            $("#shop_1").html(data);
+        })
+    })
+</script>

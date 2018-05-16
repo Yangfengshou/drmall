@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>添加管理员</title>
+    <link href="__PUBLIC__/admin/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="__PUBLIC__/admin/css/select.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="__PUBLIC__/admin/css/content_h.css" />
+    <script type="text/javascript" src="__PUBLIC__/admin/js/jquery.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/admin/layer/layer.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/admin/js/jquery.idTabs.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/admin/js/select-ui.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/admin/editor/kindeditor.js"></script>
+
+    <script type="text/javascript">
+        KE.show({
+            id : 'content7',
+            cssPath : './index.css'
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function(e) {
+            $(".select1").uedSelect({
+                width : 345
+            });
+            $(".select2").uedSelect({
+                width : 167
+            });
+            $(".select3").uedSelect({
+                width : 100
+            });
+        });
+    </script>
+</head>
+<body>
+<div class="place">
+    <span>位置:添加管理员</span>
+    <ul class="placeul">
+        <li><a href="#">首页</a></li>
+        <li><a href="#">系统设置</a></li>
+    </ul>
+</div>
+<div class="formbody">
+    <div id="usual1" class="usual">
+        <div id="tab1" class="tabson">
+            <form id="form1" method="POST">
+                <div class="form-group mt0" style="margin-top: 30px; margin-left: 20px;">
+                    <label>所属组:</label>
+                    <input type="hidden" name="group_id" value="0">
+
+                    <volist name="auth_group" id="auth_group">
+                        <span>{$auth_group['title']}</span><input type="checkbox"  name="group_id[]" value="{$auth_group['id']}" class="form-input-small">
+                    </volist>
+
+                </div>
+                <div class="form-group mt0" style="margin-top: 30px; margin-left: 20px;">
+                    <label for="user_name">用户名:</label>
+                    <input type="text" id="user_name" name="user_name" class="form-input-small">
+                </div>
+                <div class="form-group mt0" style="margin-top: 30px; margin-left: 20px;">
+                    <label for="user_name">密码:</label>
+                    <input type="password" id="user_pwd" maxlength="20" name="user_pwd" class="form-input-small">
+                </div>
+                <div style="background-color: #52AFB7; float: left; text-align: center; margin: 40px 40px 40px 50px; width: 90px; height: 40px; line-height: 40px; ">
+                    <a href="javascript:void(0);" style="color: #ffffff;" class="public-header-loginout" id="upload">添加管理员</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    $(document).on('click','#upload',function() {
+        //点击确定执行下边代码
+        $.post("{:U('Limit/manger_add')}",$("#form1").serialize(),function(json){
+            if(json.status==1){
+                layer.msg(json.info,{icon:1});
+            }else{
+                layer.msg(json.info, {icon: 2});
+            }
+        },'json');
+
+    });
+</script>
+</html>

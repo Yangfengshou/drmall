@@ -1,0 +1,15 @@
+<foreach name="bannerList   " item="v">
+    <tr>
+        <td style="color:red;font-weight:900;">banner{$v[id]}</td>
+        <input type="hidden" value="{$v[id]}" id="aid">
+        <td>{$v[banner_name]}</td>
+        <td style="font-weight:900;color:#15adff;">{$v[banner_pic]}</td>
+        <td>{$v[banner_pic]}</td>
+        <td>{$v[banner_addtime]|date='Y年m月d日',###}</td>
+        <td>{$v[admin_alive]==1?显示中:屏蔽中}</td>
+        <td><a href="" class="tablelink" data-aid="{$v[admin_id]}" data-alive="{$v[admin_alive]}"><img src="__PUBLIC__/admin/images/integral-left-li-p2.gif"/><if condition="($v[admin_alive] eq 1)">屏蔽<else/>显示</if></a>
+            <a href="{:U('Admin/admin_alter',array('aid'=>$v[admin_id]))}" class="tablelink"><img src="__PUBLIC__/admin/images/integral-left-li-p8.gif"/>编辑</a>
+            <a href="" class="tablelink" id="del" data-alive="2" data-aid="{$v[admin_id]}" onclick="confirm('你确定要删除吗?')"><img src="__PUBLIC__/admin/images/integral-left-li-p7.gif"/>删除</a>
+        </td>
+    </tr>
+</foreach>

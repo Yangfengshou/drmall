@@ -1,0 +1,337 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>无标题文档</title>
+    <link href="__PUBLIC__/admin/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="__PUBLIC__/admin/css/select.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="__PUBLIC__/admin/js/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/admin/js/jquery.idTabs.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/admin/js/select-ui.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/admin/editor/kindeditor.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/plupload/plupload.full.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/layer/layer.js"></script>
+    <style type="text/css">
+        .upButton{
+            width: 100px;
+            height: 30px;
+            border: 1px solid #7f7f7f;
+        }
+        li img{
+            vertical-align: middle;
+            display: none;
+        }
+        .usual li a{
+            display: none;
+        }
+        #detail_table td{
+            width: 80px;
+            margin: 5px;
+            height: 30px;
+            border: 1px solid #6cc67c;
+            text-align: center;
+        }
+        #detail_table td input{
+            height: 30px;
+        }
+    </style>
+
+    <script type="text/javascript">
+        $(document).ready(function(e) {
+            $(".select1").uedSelect({
+                width : 345
+            });
+            $(".select2").uedSelect({
+                width : 167
+            });
+            $(".select3").uedSelect({
+                width : 100
+            });
+        });
+    </script>
+</head>
+
+<body>
+
+<div class="place">
+    <span>位置：</span>
+    <ul class="placeul">
+        <li><a href="{:U('Index/main')}">首页</a></li>
+        <li><a href="javascript:;">添加商品</a></li>
+    </ul>
+</div>
+
+<div class="formbody">
+    <div id="usual1" class="usual">
+        <div id="tab1" class="tabson">
+            <form id="form1">
+                <ul class="forminfo">
+                    <li><label>商品名称(短)<b>*</b></label><input name="g_name" type="text" class="dfinput" placeholder="请填写商品名称"  style="width:518px;"/></li>
+                    <li><label>商品名称(全)<b>*</b></label>
+                        <input name="all_name" type="text" class="dfinput" placeholder="请填写商品名称"  style="width:518px;"/></li>
+                    <li><label>商品价格<b>*</b></label><input name="price" type="text" class="dfinput" placeholder="请填写商品均价"  style="width:518px;"/></li>
+                    <li><label>商品主图<b>*</b></label>
+                        <input type="hidden" name="main_img" />
+                        <input name="" id="main_img_up" type="button" value="选择商品主图" class="upButton" />
+                        <input name="" id="do_main_img_up" type="button" value="上传商品主图" class="upButton" />
+                        <img  src="" name="del_main_img" alt="" style="width: 50px;height: 50px"/>
+                        &nbsp; &nbsp;  &nbsp;  &nbsp; &nbsp; &nbsp;  &nbsp;  &nbsp;
+                        <a href="javascript:;" class="del_img">撤销</a>
+                    </li>
+                    <li><label>商品附图1<b>*</b></label>
+                        <input type="hidden" name="minor_img[]" />
+                        <input name="" id="minor_img_up1" type="button" value="选择商品附图1" class="upButton" />
+                        <input name="" id="do_minor_img_up1" type="button" value="上传商品附图1" class="upButton" />
+                        <img  src="" name="del_main_img" alt="" style="width: 50px;height: 50px"/>
+                        &nbsp; &nbsp;  &nbsp;  &nbsp; &nbsp; &nbsp;  &nbsp;  &nbsp;
+                        <a href="javascript:;" class="del_img">撤销</a>
+                    </li>
+                    <li><label>商品附图2<b>*</b></label>
+                        <input type="hidden" name="minor_img[]" />
+                        <input name="" id="minor_img_up2" type="button" value="选择商品附图2" class="upButton" />
+                        <input name="" id="do_minor_img_up2" type="button" value="上传商品附图2" class="upButton" />
+                        <img  src="" name="del_main_img" alt="" style="width: 50px;height: 50px"/>
+                        &nbsp; &nbsp;  &nbsp;  &nbsp; &nbsp; &nbsp;  &nbsp;  &nbsp;
+                        <a href="javascript:;" class="del_img">撤销</a>
+                    </li>
+                    <li><label>商品附图3<b>*</b></label>
+                        <input type="hidden" name="minor_img[]" />
+                        <input name="" id="minor_img_up3" type="button" value="选择商品附图3" class="upButton" />
+                        <input name="" id="do_minor_img_up3" type="button" value="上传商品附图3" class="upButton" />
+                        <img  src="" name="del_main_img" alt="" style="width: 50px;height: 50px"/>
+                        &nbsp; &nbsp;  &nbsp;  &nbsp; &nbsp; &nbsp;  &nbsp;  &nbsp;
+                        <a href="javascript:;" class="del_img">撤销</a>
+                    </li>
+                    <li><label>商品类别<b>*</b></label>
+                        <div class="usercity">
+                            <div class="cityleft">
+                                <select class="select2" name="c_top_id">
+                                    <option value="0">请选择顶级类别</option>
+                                    <foreach name="topCate" item="vo" >
+                                        <option value="{$vo['cid']}">{$vo['c_name']}</option>
+                                    </foreach>
+                                </select>
+                            </div>
+                            <div class="cityleft">
+                                <select class="select2" name="c_sed_id">
+                                    <option value="0">请选择次级类别</option>
+                                </select>
+                            </div>
+                            <div class="cityleft">
+                                <select class="select2" name="c_trd_id">
+                                    <option value="0">请选择三级类别</option>
+                                </select>
+                            </div>
+                        </div>
+                    </li>
+                    <li><label>商品品牌<b>*</b></label>
+                        <div class="usercity">
+                            <div class="cityleft">
+                                <select class="select2" name="b_id">
+                                    <option value="0">请选择品牌</option>
+                                    <foreach name="brandArr" item="vo" >
+                                        <option value="{$vo['bid']}">{$vo['b_name']}</option>
+                                    </foreach>
+                                </select>
+                            </div>
+                        </div>
+                    </li>
+                    <li><label>商品特征1<b>*</b></label>
+                        <input name="good_tz_one" type="text" class="dfinput" placeholder="请填写商品特征1属性名"  style="width:200px;margin-left: 10px"/>
+                        <input name="" type="button" class="addDetail1"  value="填写属性值"  style="width:80px; height: 30px"/>
+                    </li>
+                    <li><label>商品特征2<b>*</b></label>
+                        <input name="good_tz_two" type="text" class="dfinput" placeholder="请填写商品特征1属性名"  style="width:200px;margin-left: 10px"/>
+                        <input type="button"  class="addDetail2"   value="填写属性值"  style="width:80px; height: 30px"/>
+                    </li>
+                    <li><label>生成详情<b>*</b></label>
+                        <input name="" type="button"  class="addDetail3"   value="生成详情"  style="width:80px; height: 30px"/>
+                    </li>
+                    <li  style="display: none">
+                        <label>商品详情<b>*</b></label>
+                        <table id="detail_table">
+                        </table>
+                        <input name="" type="button"  class="delDetail3"   value="撤销"  style="width:80px; height: 30px"/>
+                    </li>
+                    <li></li>
+                    <li><label>通知内容<b>*</b></label>
+                        <textarea id="content7" name="content" style="width:700px;height:250px;visibility:hidden;"></textarea>
+                    </li>
+                    <li><label>&nbsp;</label><input name="" id="doSubmit" type="button" class="btn" value="马上发布"/></li>
+                </ul>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+</body>
+<script>
+    $("#doSubmit").click(function () {
+        var data=$("#form1").serialize()
+        $.post('',data,function (res) {
+            alert(res['info'])
+        })
+    })
+
+</script>
+<script>
+    function remove(obj) {
+        var img_name=$(obj).prev().prev().prev().prev().val()
+        $.post("{:U('PublicFile/deleteUpLoadFile')}",{name:img_name},function (res) {
+            if(res['id']==1){
+                $(obj).prev().prev().prev().show();
+                $(obj).prev().prev().show();
+                $(obj).prev().prev().prev().prev().val('')
+                $(obj).prev().attr('src', '')
+                $(obj).prev().hide()
+                $(obj).hide()
+                layer.msg(res['info']);
+            }
+        },'json')
+    }
+    function imgUp(id) {
+        var uploader = new plupload.Uploader({
+            browse_button: id,
+            url: "{:U('PublicFile/filesUpLoad')}",
+            flash_swf_url: '__PUBLIC__/plupload/Moxie.swf',
+            silverlight_xap_url: '__PUBLIC__/plupload/Moxie.xap',
+            init: {
+                FileUploaded: function (uploader, file, responseObject) {
+                    var result = $.parseJSON(responseObject.response);
+                    if (result.status == 1) {
+                        $('#'+id).hide();
+                        $('#'+id).next().hide()
+                        $('#'+id).prev().val(result.file)
+                        $('#'+id).nextAll('img').attr('src', "__PUBLIC__/upload/runTime/" + result.file)
+                        $('#'+id).nextAll('img').show()
+                        $('#'+id).nextAll('a').show()
+                        layer.msg(result.message);
+                    }
+                }
+            }
+        });
+        uploader.init();
+        return uploader
+    }
+    $('.del_img').click(function () {
+        remove(this)
+    })
+    var main=imgUp('main_img_up')
+    var minor1=imgUp('minor_img_up1')
+    var minor2=imgUp('minor_img_up2')
+    var minor3=imgUp('minor_img_up3')
+    $("#do_minor_img_up1").click(function () {
+        minor1.start()
+    })
+    $("#do_minor_img_up2").click(function () {
+        minor2.start()
+    })
+    $("#do_minor_img_up3").click(function () {
+        minor3.start()
+    })
+    $("#do_main_img_up").click(function () {
+        main.start();
+    })
+
+</script>
+
+
+<script>
+    $('.delTz').live('click',function () {
+        $(this).prev().remove()
+        $(this).remove()
+    })
+    $(".delDetail3").click(function () {
+        $("#detail_table").empty()
+        $(this).parent().hide()
+        $("input[name='tzone[]']").attr({readonly:false})
+        $("input[name='tztwo[]']").attr({readonly:false})
+        $('.delTz').show()
+    })
+    $(".addDetail3").click(function () {
+        $('.delTz').hide()
+        $("#detail_table").append("<tr><td>"+$("input[name='good_tz_one']").val()+"</td><td>"+$("input[name='good_tz_two']").val()+"</td><td>价格</td><td>库存</td>")
+        $("input[name='tzone[]']").each(function () {
+            var tzone=$(this).val()
+            $("input[name='tztwo[]']").each(function () {
+                $("#detail_table").append("<tr><td>"+tzone+"</td><td>"+$(this).val()+"</td><td><input type='text' name='detail_price[]'></td><td><input type='text' name='detail_num[]'></td>")
+            })
+        })
+        $("input[name='tzone[]']").attr({readonly:'readonly'})
+        $("input[name='tztwo[]']").attr({readonly:'readonly'})
+        $(".addDetail3").parent().hide()
+        $(".addDetail3").parent().next().show();
+    })
+    $(".addDetail1").click(function () {
+        $(this).parent().append('<input  placeholder="属性值" type="text" class="dfinput" name="tzone[]" style="width: 80px"/><input type="button" value="撤销" class="delTz">')
+    })
+    $(".addDetail2").click(function () {
+        $(this).parent().append('<input  placeholder="属性值" type="text" class="dfinput" name="tztwo[]" style="width: 80px"/><input type="button" value="撤销" class="delTz">')
+    })
+
+
+
+
+
+
+    $("select[name='c_top_id']").change(function () {
+        var id=$(this).val()
+        if(id>0){
+            $.post("{:U('Goods/getNextCate')}",{topid:id},function (res) {
+                $("select[name='c_sed_id']").empty()
+                $("select[name='c_sed_id']").append('<option value="0">请选择次级分类</option>')
+                $("select[name='c_sed_id']").append(res)
+            })
+        }
+    })
+    $("select[name='c_sed_id']").change(function () {
+        var id=$(this).val()
+        if(id>0){
+            $.post("{:U('Goods/getNextCate')}",{sedid:id},function (res) {
+                $("select[name='c_trd_id']").empty()
+                $("select[name='c_trd_id']").append('<option value="0">请选择次级分类</option>')
+                $("select[name='c_trd_id']").append(res)
+            })
+        }
+    })
+</script>
+<script>
+    var editor;
+    KindEditor.ready(function(K) {
+        editor = K.create('textarea[name="content"]', {
+            allowFileManager : true,
+            afterBlur:function () {
+                this.sync();
+            }
+        });
+        K('input[name=getHtml]').click(function(e) {
+            alert(editor.html());
+        });
+        K('input[name=isEmpty]').click(function(e) {
+            alert(editor.isEmpty());
+        });
+        K('input[name=getText]').click(function(e) {
+            alert(editor.text());
+        });
+        K('input[name=selectedHtml]').click(function(e) {
+            alert(editor.selectedHtml());
+        });
+        K('input[name=setHtml]').click(function(e) {
+            editor.html('<h3>Hello KindEditor</h3>');
+        });
+        K('input[name=setText]').click(function(e) {
+            editor.text('<h3>Hello KindEditor</h3>');
+        });
+        K('input[name=insertHtml]').click(function(e) {
+            editor.insertHtml('<strong>插入HTML</strong>');
+        });
+        K('input[name=appendHtml]').click(function(e) {
+            editor.appendHtml('<strong>添加HTML</strong>');
+        });
+        K('input[name=clear]').click(function(e) {
+            editor.html('');
+        });
+    });
+</script>
+</html>

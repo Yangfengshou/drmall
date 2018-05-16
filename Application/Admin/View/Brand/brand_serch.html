@@ -1,0 +1,38 @@
+<foreach name="brandlist" item="v">
+    <tr>
+        <td><input name="" type="checkbox" value="" /></td>
+        <td>{$v.brand_id}</td>
+        <td>{$v['brand_name']}</td>
+        <td><img src="__PUBLIC__/upload/50/thumb_50_{$v.brand_pic}" /></td>
+        <?php $catename=getCateName($v['cate_id']); ?>
+        <foreach name="catename" item="v1">
+            <td>{$v1.cate_name} / {$v1.cate_id}</td>
+        </foreach>
+        <td><a><if condition="$v[brand_active] eq 1">已审核
+            <else/><if condition="$v[brand_active] eq 2">审核中<else/>未审核</if>
+        </if></a></td>
+        <td><a href="{:U('Brand/brand_edit',array(bid=>$v[brand_id]))}" name="edit" data-bid="{$v[brand_id]}" class="tablelink"><img src="__PUBLIC__/admin/images/integral-left-li-p8.gif"/>编辑</a>
+            <a href="#" class="tablelink" name="shenhe" data-id="{$v[brand_id]}" data-active="{$v[brand_active]}"><img src="__PUBLIC__/admin/images/integral-left-li-p7.gif"/><if condition="$v[brand_active] eq 0">
+                审核<else/>
+            </if></a>
+        </td>
+    </tr>
+</foreach>
+<script>
+    $('a[name=shenhe]').bind('click',function() {
+        var brand_id=$(this).data('id');
+        var brand_active=$(this).data('active');
+        $.post("{:U('Brand/brand_active')}",{brand_id:brand_id,brand_active:brand_active},function(data){
+            if(brand_active==0){
+                layer.msg('已提交审核，请耐心等待审核结果',{icon:6});
+                $("#active").html(data);
+            }
+        })
+    })
+    $('.scbtn').bind('click',function(){
+        var serch=$('#serch').val();
+        $.post("{:U('Brand/brand_serch')}",{serch:serch},function(data){
+            $("#active").html(data);
+        })
+    })
+</script>

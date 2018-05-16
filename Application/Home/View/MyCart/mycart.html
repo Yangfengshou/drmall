@@ -1,0 +1,187 @@
+<layout name="Layout/layout1"/>
+<title>购物车</title>
+<!--内容开始-->
+    <div class="cart-content w1200">
+    	<ul class="cart-tit-nav">
+        	<li class="current"><a href="#">全部商品   21</a></li>
+        	<li><a href="#">降价商品   1</a></li>
+        	<li><a href="#">进口商品   1</a></li>
+            <div style="clear:both;"></div>
+        </ul>
+        <div class="cart-con-tit">
+        	<p class="p1">
+            	<input type="checkbox" name="hobby[]" class="qx">
+				<span>全选</span>
+            </p>
+            <p class="p2">商品信息</p>
+            <p class="p3">规格</p>
+            <p class="p4">数量</p>
+            <p class="p5">单价（元）</p>
+            <p class="p6">金额（元）</p>
+            <p class="p7">操作</p>
+        </div>
+<form id="form1">
+    <foreach name="goodsInfo" key="key" item="value">
+        <foreach name="value" key="k" item="v">
+            <div class="cart-con-info">
+                <div class="info-mid">
+                    <input type="checkbox"  name="hobby[{$k}]" value="{$v[goods_id]}" data="hobby" class="mid-ipt f-l">
+                    <div class="mid-tu f-l">
+                        <a href="#"><img src="__PUBLIC__/home/upload/{$v[goods_pic]}" style="width: 100px ;height:100px"/></a>
+                    </div>
+                    <div class="mid-font f-l">
+                        <div class="mycart_font"><a href="{:U('Goods/goodsdetail',array('gid'=>$v[goods_id]))}" title="{$v['goods_name']}">{$v['goods_name']}<br/></a></div>
+                        <span>满赠</span>
+                    </div>
+                    <div class="mid-guige f-l">
+                        <p>颜色：{$v['goods_color_name']}</p>
+                        <p>尺码：{$v['goods_size_name']}</p>
+
+                        <a href="JavaScript:;" class="xg" xg="xg1">修改</a>
+                        <div class="guige-xiugai" xg-g="xg1">
+                            <div class="xg-left f-l">
+                                <dl>
+                                    <dt>颜  色</dt>
+                                    <dd>
+                                        <a href="JavaScript:;" class="current">黑色</a>
+                                        <a href="JavaScript:;">白色</a>
+                                    </dd>
+                                    <div style="clear:both;"></div>
+                                </dl>
+                                <dl>
+                                    <dt>尺  码</dt>
+                                    <dd>
+                                        <a href="JavaScript:;" class="current">M</a>
+                                        <a href="JavaScript:;">L</a>
+                                        <a href="JavaScript:;">XL</a>
+                                    </dd>
+                                    <div style="clear:both;"></div>
+                                </dl>
+                                <a href="JavaScript:;" class="qd">确定</a>
+                                <a href="JavaScript:;" class="qx" qx="xg1">取消</a>
+                            </div>
+
+                            <div class="xg-right f-l">
+                                <a href="#"><img src="__PUBLIC__/home/images/dai2.gif" /></a>
+                            </div>
+                            <div style="clear:both;"></div>
+                        </div>
+                    </div>
+                    <div class="mid-sl f-l">
+                        <a href="JavaScript:;" class="sl-left">-</a>
+                        <input type="text" name="buynum[{$k}]" value="{$v['goods_buynum']}" class="buygoodsnum" />
+                        <a href="JavaScript:;" class="sl-right">+</a>
+                    </div>
+                    <input type="hidden" name="goods_price[{$k}]" value="{$v[goods_detail_price]}"/>
+                    <input type="hidden" name="goods_detail_id[{$k}]" value="{$v[goods_detail_id]}"/>
+                    <p class="mid-dj f-l">¥ <span>{$v[goods_detail_price]}</span></p>
+                    <p class="mid-je f-l">¥ <span>{$v[goods_buynum]*$v[goods_detail_price]}</span>.00</p>
+                    <div class="mid-chaozuo f-l">
+                        <a href="#">移入收藏夹</a>
+                        <a href="#" data-id="{$v[goods_id]}" class="delete">删除</a>
+                    </div>
+                    <div style="clear:both;"></div>
+                </div>
+            </div>
+            </foreach>
+        </foreach>
+</form>
+        <tr>
+            <td colspan="4">
+                <div class="page">
+                    {$page}
+                </div>
+            </td>
+        </tr>
+       	<div class="cart-con-footer">
+        	<div class="quanxuan f-l">
+            	<input type="checkbox" value="" name="hobby[{$k}]" data="hobby" class="qx">
+                <span>全选</span>
+                <a href="#" class="qxdelete">删除</a>
+                <a href="#">加入收藏夹</a>
+                <p>（此处始终在屏幕下方）</p>
+            </div>
+            <div class="jiesuan f-r">
+            	<div class="jshj f-l">
+                	<p>合计（不含运费）</p>
+                	<p class="jshj-p2">
+                    	￥：<span style="font-size:25px;color:red;" id="sum">0.00</span>
+                    </p>
+                </div>
+            	<a><input type="button" id="dosum" class="js-a1 f-l" value="结算"/></a>
+                <div style="clear:both;"></div>
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+    </div>
+
+
+<!--底部服务-->
+<script>
+    $(function(){
+        $('.delete').click(function(){
+            var gid=$(this).data('id');
+            $.post("{:U('MyCart/delete')}",{gid:gid},function(data){
+                if(data['status']==1){
+                    location.href='{:U("MyCart/mycart")}';
+                }else{
+                    location.href='{:U("MyCart/mycart")}';
+                }
+
+            },'json')
+
+        })
+        $('.qxdelete').click(function(){
+            $.post("{:U('MyCart/qxdelete')}",function(data){
+                if(data['status']==1){
+                    location.href='{:U("MyCart/mycart")}';
+                }else{
+                    layer.msg("删除失败");
+                    location.href='{:U("MyCart/mycart")}';
+                }
+
+            },'json')
+
+        })
+
+
+        //获取对应按钮的id    /*需要修改*/
+        /*$('#dosum').click(function(){
+            var sum=$('#sum').text();
+            //console.log(sum);return false;//0.00
+            $.post("{:U('MyCart/dosum')}",function(data){
+                if(data['status']==2){
+                    location.href="{:U('Login/login',array('act'=>3))}" ;
+                }else{
+                    if(sum==0){//正确的   逻辑语句写错了  应该先判断sum是否为0
+                        return false;
+                    }else{
+                        $.post("{:U('Order/topay')}",$('#form1').serialize(),function(data){
+                            location.href='{:U("Order/orderGoodsGrade",array("act"=>1))}';
+                        },'json')
+                    }
+                }
+            },'json')
+        })*/
+        $('#dosum').click(function() {
+            var sum = $('#sum').text();
+            $.post("{:U('MyCart/dosum')}",function(data){
+                if(sum==0){
+                    return false;
+                }
+                if(data['status']==2){
+                    //alert(123);
+                    location.href="{:U('Login/login',array('act'=>3))}" ;
+                }else{
+                    //alert(321);
+                    $.post("{:U('Order/topay')}",$('#form1').serialize(),function(data){
+                        location.href='{:U("Order/orderGoodsGrade",array("act"=>1))}';
+                    },'json')
+                }
+            },'json')
+
+        })
+
+    })
+
+</script>

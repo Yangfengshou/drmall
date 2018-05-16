@@ -1,0 +1,32 @@
+<foreach name="catelist" item="v">
+    <tr>
+        <td>{$v.cate_id}</td>
+        <td>{$v.cate_name}</td>
+        <td>{$v.cate_pid}</td>
+        <if condition="$v[active] eq 1">
+            <td><a style="color: #009900">已上架</a></td>
+            <else/>
+            <td><a style="color: #808080">已下架</a></td>
+        </if>
+        <td><a href="{:U('Cate/cate_edit',array('cate_id',$v[cate_id]))}" class="tablelink"><img src="__PUBLIC__/admin/images/integral-left-li-p8.gif"/>编辑</a>
+            <a href="#" data-id="{$v[cate_id]}" data-alive="{$v[active]}" id="tablelink" class="tablelink"><img src="__PUBLIC__/admin/images/integral-left-li-p7.gif"/>
+                <if condition="$v[active] eq 1">下架<else/>上架</if></a></td>
+    </tr>
+</foreach>
+<script>
+    //上下架
+    $('#tablelink').bind('click',function() {
+        var cate_id=$(this).data('id');
+        var cate_alive=$(this).data('alive');
+        $.post("{:U('Cate/cate_delete')}",{cate_id:cate_id,cate_alive:cate_alive},function(data){
+            if(cate_alive==1){
+                layer.msg('该类下架成功',{icon:5});
+                $("#alive").html(data);
+            }else{
+                layer.msg('该类上架成功',{icon:6});
+                $("#alive").html(data);
+            }
+        })
+    })
+
+</script>

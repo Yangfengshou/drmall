@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>管理员列表</title>
+    <link href="__PUBLIC__/admin/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="__PUBLIC__/admin/css/select.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="__PUBLIC__/home/js/jquery.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/home/layer/layer.js"></script>
+</head>
+<body>
+<div class="place">
+    <span>位置:管理员列表</span>
+    <ul class="placeul">
+        <li><a href="#">首页</a></li>
+        <li><a href="#">管理员列表</a></li>
+    </ul>
+</div>
+<form action="" method="post">
+<div class="formbody">
+    <div id="usual1" class="usual">
+        <div id="tab2" class="tabson">
+            <ul class="seachform">
+                <li><label>综合查询</label><input name="adminInfo" type="text" class="scinput" id="adminInfo" value=""/></li>
+                <li><label>&nbsp;</label><input name="dosubmit" id="dosubmit" type="button" class="scbtn" value="查询"/></li>
+            </ul>
+            <table class="tablelist">
+                <thead>
+                <tr>
+                    <th style="width:80px;">管理员ID</th>
+                    <th>用户名</th>
+                    <th>权限</th>
+                    <th>真实姓名</th>
+                    <th>手机号</th>
+                    <th>注册时间</th>
+                    <th>最后登陆时间</th>
+                    <th>登陆IP</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody id="alive">
+                <foreach name="adminlist" item="v">
+                <tr>
+                    <td style="color:red;font-weight:900;">0000{$v[admin_id]}</td>
+                    <input type="hidden" value="{$v[admin_id]}" id="aid">
+                    <td>{$v[admin_username]}</td>
+                    <td style="font-weight:900;color:#15adff;">{$v[admin_grade]}</td>
+                    <td>{$v[admin_name]}</td>
+                    <td>{$v[phone_number]}</td>
+                    <td>{$v[admin_addtime]|date='Y年m月d日',###}</td>
+                    <if condition="empty($v[lastlogin_time]) neq true">
+                        <td>{$v[lastlogin_time]|date='Y年m月d日 H时i分s秒',###}</td>
+                        <else/>
+                        <td></td>
+                    </if>
+
+                    <td style="color:red;font-weight:900;">{$v[lastlogin_ip]}</td>
+                    <td>{$v[admin_alive]==1?启用:禁用}</td>
+                    <td><a href="" class="tablelink" data-aid="{$v[admin_id]}" data-alive="{$v[admin_alive]}"><img src="__PUBLIC__/admin/images/integral-left-li-p2.gif"/><if condition="($v[admin_alive] eq 1)">禁用<else/>启用</if></a>
+                        <a href="{:U('Admin/admin_alter',array('aid'=>$v[admin_id]))}" class="tablelink"><img src="__PUBLIC__/admin/images/integral-left-li-p8.gif"/>编辑</a>
+                        <a href="" class="tablelink" id="del" data-alive="2" data-aid="{$v[admin_id]}" onclick="confirm('你确定要删除吗?')"><img src="__PUBLIC__/admin/images/integral-left-li-p7.gif"/>删除</a>
+                    </td>
+                </tr>
+                </foreach>
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+</form>
+<tr>
+    <td colspan="4">
+        <div class="page">
+            {$page}
+        </div>
+    </td>
+</tr>
+</body>
+<script>
+    $(function(){
+        //点击禁用或启用
+        $('.tablelink').on('click',function(){
+            var aid=$(this).data('aid');
+            var alive=$(this).data('alive');
+            $.post("{:U('Admin/admin_alive')}",{aid:aid,alive:alive},function(data){
+                if(alive==1){
+                    $("#alive").html(data);
+                }else{
+                    $("#alive").html(data);
+                }
+            })
+        })
+        //点击删除
+        $('#del').on('click',function(){
+            var alive=$(this).data('alive');
+            $.post("{:U('Admin/admin_alive')}",{alive:alive},function(data){
+                if(alive==2){
+                    $("#alive").html(data);
+                }
+            })
+        })
+        //点击查询
+        $('#dosubmit').on('click',function(){
+            var adminInfo=$('#adminInfo').val();
+            $.post("{:U('Admin/admin_select')}",{adminInfo:adminInfo},function(data){
+                    $("#alive").html(data);
+            })
+        })
+    })
+</script>
+</html>

@@ -1,0 +1,162 @@
+<layout name="Layout/layout2"/>
+    <div class="management f-r">
+        <div class="tanchuang-con">
+            <div class="tc-title">
+                <h3>我的收货地址</h3>
+            </div>
+            <font class="xinxi">请认真填写以下信息！</font>
+            <form action="{:$_GET['id']==0?U('Member/Myreceipt'):U('Member/Myalter')}" method="post" id="form1">
+
+            <ul class="tc-con2">
+                <li >
+                    <p class="l-p">所在地区<span>*</span></p>
+                    <div class="info">
+                    <div>
+                        <select id="s_province" name="s_province"></select>  
+                        <select id="s_city" name="s_city" ></select>  
+                        <select id="s_county" name="s_county"></select>
+
+
+                        <script type="text/javascript">_init_area();</script>
+                    </div>
+                    <div id="show"></div>
+        </div>
+        <script type="text/javascript">
+            var Gid  = document.getElementById ;
+            var showArea = function(){
+             Gid('show').innerHTML = +"<h3>省" + Gid('s_province').value + " - 市" +
+                Gid('s_city').value + " - 县/区" +
+                Gid('s_county').value + "</h3>"
+            }
+            Gid('s_county').setAttribute('onchange','showArea()');
+        </script>
+
+<div style="clear:both;"></div>
+                </li>
+                <li class="tc-li1">
+                    <p class="l-p">详细地址<span>*</span></p>
+                    <input  type="text" name="address" style="width: 350px" >
+                    <span style="clear:both;"></span>
+                </li>
+                <li class="tc-li1">
+                    <p class="l-p">邮政编码<span>*</span></p>
+                    <input type="text" name="postcode" />
+                    <span style="clear:both;"></span>
+                </li>
+                <li class="tc-li1">
+                    <p class="l-p">收货人姓名<span>*</span></p>
+                    <input type="text" name="username"/>
+                    <span style="clear:both;"></span>
+                </li>
+                <li class="tc-li1">
+                    <p class="l-p">联系电话<span>*</span></p>
+                    <input type="text" name="mobile" />
+                    <span style="clear:both;"></span>
+                </li>
+            </ul>
+
+            <input class="btn-pst2" type="submit" value="保存">
+            </form>
+        </div>
+        <div class="man-info">
+            <foreach name="count" item="vel">
+            <ul>您已经保存{$vel.count('site_id')}个地址！</ul>
+            </foreach>
+            <div class="man-if-con">
+                <div class="man-tit">
+                    <p class="p1">收货人</p>
+                    <p class="p2">所在地区</p>
+                    <p class="p3">详细地址</p>
+                    <p class="p4">邮编</p>
+                    <p class="p5">电话/手机</p>
+                    <p class="p6">操作</p>
+                </div>
+                <ul class="man-ul1">
+
+                    <foreach name="site" key="k" item="val">
+                    <li>
+                        <p class="p1">{$val.site_name}</p>
+                        <p class="p2">{$val.site_area}</p>
+                        <p class="p3">{$val.site_ads}</p>
+                        <p class="p4">{$val.site_pc}</p>
+                        <p class="p5">{$val.site_mobile}</p>
+                        <p class="p6">
+                            <!--<a id="id" href="{:U('Member/alter',array('id'=>$val[site_id]))}">修改</a>-->
+                            <input type="hidden" value="{$val[site_id]}" name="adres_id"/>
+                            <input id="delet" type="button" value="删除"/>
+                        </p>
+                        <p class="p7"><a href="#">{$val[activ]==1?'默认地址':'设置'}</a></p>
+                        <div style="clear:both;"></div>
+                    </li>
+                    </foreach>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div style="clear:both;"></div>
+</div>
+<script>
+    jQuery.validator.addMethod("mobile", function(value, element) {
+        var mobileReg = /^1[34578]{1}[0-9]{9}$/;
+        return this.optional(element) || (mobileReg.test(value));
+    }, "请正确填写您的手机号码");
+    $(function(){
+        $('#form1').validate({
+            //设置验证信息：
+            rules:{
+                address:{
+                    required:true
+                },
+                postcode:{
+                    required:true,
+                    range:[0,999999]
+                },
+                username:{
+                    required:true
+                },
+                mobile:{
+                        required:true,
+                        mobile:true
+                }
+            },
+            //设置提醒信息：
+            messages:{
+                address:{
+                    required:"用户名不能为空"
+                },
+                postcode:{
+                    required:"邮编不能为空",
+                    range:"邮编只能为6位数"
+                },
+                username:{
+                    required:"收货人姓名不能为空"
+                },
+                mobile:{
+                    required:"电话不能为空",
+                    mobile:"请正确输入您的手机号"
+                }
+            },
+            success: function(label){
+                label.addClass("ok").text("通过验证");
+            },
+            validClass: "ok",
+            errorPlacement:function(error, element){
+                error.insertAfter(element.next());
+            }
+        })
+
+        $("#delet").click(function(){
+            var adres_id=$('input[name="adres_id"]').val();
+            $.post("{:U('Member/del')}",{id:adres_id},function(data){
+                if(data['status']==1){
+                    layer.msg(data['info'],{icon:6});
+                    location.href="{:U('/Home/Member/shouhuo')}";
+                }else{
+                    layer.msg(data['info'],{icon:5});
+                }
+            },'json');
+        })
+    })
+
+</script>
+

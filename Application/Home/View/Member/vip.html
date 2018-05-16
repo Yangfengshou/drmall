@@ -1,0 +1,134 @@
+<layout name="Layout/layout2"/>
+    <div class="member f-r">
+        <div class="mem-info1">
+            <div class="title">
+                <h3>会员积分</h3>
+            </div>
+            <div class="mem-con1">
+                <dl class="f-l">
+                    <dt><a href="#"><img src="__PUBLIC__/home/images/data-tu2.gif" /></a></dt>
+                    <dd>
+                        <a href="#">{$_SESSION['mname']}</a>
+                        <span id="txt"></span>
+                    </dd>
+                    <div style="clear:both;"></div>
+                </dl>
+                <ul class="f-l">
+                    <li>
+                        <p>商城积分</p>
+                        <span>{$data[0][vip_goods]}</span>
+                    </li>
+                    <li>
+                        <p>总积分</p>
+                        <span>{$data[0][vip_num]}</span>
+                    </li>
+                    <div style="clear:both;"></div>
+                </ul>
+                <a href="{:U('Index/shopGradeActive')}" class="duihuan f-l">兑换超值商品或参加活动</a>
+                <div style="clear:both;"></div>
+            </div>
+        </div>
+        <div class="mem-info2">
+            <div class="title">
+                <h3>积分获取</h3>
+            </div>
+            <ul>
+                <li class="current" jfhq="qb"><a href="JavaScript:;">全部</a></li>
+                <li jfhq="gmsp"><a href="JavaScript:;">购买商品</a></li>
+                <li jfhq="cjhd"><a href="JavaScript:;">参加活动</a></li>
+                <li jfhq="qd"><a href="JavaScript:;">签到</a></li>
+                <div style="clear:both;"></div>
+            </ul>
+            <form method="post">
+            <div class="mem-con2">
+                <dl hpjf="gmsp">
+                    <dt>
+                    <h3>购买商品获得共<span>{$data[0][vip_goods]}积分</span></h3>
+                    <p>您可以通过购物下单获取积分</p>
+                    </dt>
+                    <dd>
+                        <a href="{:U('Index/index')}">去商城购物</a>
+                    </dd>
+                    <div style="clear:both;"></div>
+                </dl>
+                <dl hpjf="cjhd">
+                    <dt>
+                    <h3>参加商城活动获得共<span>{$data[0][vip_active]}积分</span></h3>
+                    <p>您可以通过参加商城活动获取积分</p>
+                    </dt>
+                    <dd>
+                        <a href="{:U('Index/mallActive')}">去商城活动</a>
+                    </dd>
+                    <div style="clear:both;"></div>
+                </dl>
+                <dl hpjf="qd">
+                    <dt id="vip_1">
+                    <h3>签到获得共 <span>{$data[0][vip_day]}积分</span></h3>
+                    <p>您可以通过每天签到获取积分</p>
+                    </dt>
+                    <dd>
+                        <a href="javascript:;" id="day">签到</a>
+                        <input type="hidden" id="vipday" value="<?php echo $_SESSION['vipday'];?>" name="vipday"/>
+                        <span>获得 +10积分</span>
+                    </dd>
+                    <div style="clear:both;"></div>
+                </dl>
+            </div>
+            </form>
+        </div>
+    </div>
+    <div style="clear:both;"></div>
+</div>
+
+<script>
+    $('#day').on('click',function(){
+        var day=10;
+        var vipday=$('#vipday').val();
+        $('#vipday').val(1);
+            $.post("{:U('Member/vipadd')}",{
+            vipday:vipday,
+            day:day},
+            function(data){
+            if(data['status']==2){
+                alert(data['info']);
+            }else{
+                if(data['status']==1){
+                    alert(data['info']);
+                }else{
+                    alert(data['info']);
+                }
+            }
+
+            },'json');
+        show_list();
+        function show_list(){
+            $.post("{:U('Member/vip_1')}",function(data){
+                $("#vip_1").html(data);
+            });
+        }
+    })
+</script>
+<!--时间    自动走动的时间-->
+<script type="text/javascript">
+    function startTime()
+    {
+        var today=new Date()
+        var h=today.getHours()
+        var m=today.getMinutes()
+        var s=today.getSeconds()
+        var y=today.getFullYear()
+        var m1=today.getMonth()+1
+        var d=today.getDate()
+        m=checkTime(m)
+        s=checkTime(s)
+        document.getElementById('txt').innerHTML=y+"-"+m1+"-"+d+" "+h+":"+m+":"+s
+        t=setTimeout('startTime()',500)
+    }
+
+    function checkTime(i)
+    {
+        if (i<10)
+        {i="0" + i}
+        return i
+    }
+</script>

@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>确认订单</title>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/home/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/home/css/shopping-mall-index.css" />
+    <script type="text/javascript" src="__PUBLIC__/home/js/jquery.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/home/js/zhonglin.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/home/layer/layer.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/home/js/jquery.validate.min.js"></script>
+    <script class="resources library" src="__PUBLIC__/home/js/area.js" type="text/javascript"></script>
+ <!--   <script>
+        $(function(){
+            $('.btn').on('click',function(){
+                var site_id=$('.site_id').val();
+                $.post("{:U('Order/pay')}",{})
+            })
+        })
+    </script>-->
+</head>
+<body style="position:relative;">
+
+
+<layout name="Layout/layout1"/>
+<!--内容开始-->
+<form action="{:U('Order/pay')}" method="post">
+<div class="payment-interface w1200">
+    <div class="pay-info">
+        <div class="info-tit">
+            <h3>选择收货地址</h3>
+        </div>
+        <ul class="pay-dz">
+            <foreach name="site" key="k" item="val">
+            <li class="current">
+                <h3><span class="sp1">{$val.site_area}</span><span class="sp2"></span>（<span class="sp3">{$val.site_name}</span> 收）</h3>
+                <p><span class="sp1">{$val.site_ads}</span><span class="sp2">{$val.site_mobile}</span></p>
+                <a href="{:U('Member/skip',array('id'=>$val['site_id']))}">修改</a>
+                <input type="hidden" name="site_id"    value="{$val.site_id}"/>
+            </li>
+            </foreach>
+        </ul>
+
+        <P class="pay-xgdz"><div style="height: 130px"></div></P>
+    </div>
+    <div class="pay-info">
+        <div class="info-tit" style="border-bottom:0;">
+            <h3>订单信息</h3>
+        </div>
+    </div>
+    <div class="cart-con-info">
+        <div class="cart-con-tit" style="margin:20px 0 5px;">
+            <p class="p1" style="width:400px;">
+                <span>商家：向东服饰专卖店</span>
+            </p>
+            <p class="p3" style="width:145px;">规格</p>
+            <p class="p4" style="width:130px;">数量</p>
+            <p class="p8" style="width:75px;">运费</p>
+            <p class="p5">单价（元）</p>
+            <p class="p6" style="width:173px;">金额（元）</p>
+            <p class="p7">配送方式</p>
+        </div>
+        <foreach name="res" key="k" item="v">
+        <div class="info-mid">
+            <div class="mid-tu f-l">
+                <a href="#"><img src="__PUBLIC__/home/upload/50/thumb_50_{$v[goods_pic]}" style="width: 65px;height: 65px"/></a>
+            </div>
+            <div class="mid-font f-l" style="margin-right:40px;">
+                <a href="#" name="goodsname" title="{$v[goods_name]}">{:mb_substr($v[goods_name],0,19,'utf8')}</a>
+            </div>
+            <div class="mid-guige1 f-l" style="margin-right:40px;">
+                <p>颜色：{$v['goods_color_name']}</p>
+                <p>尺码：{$v['goods_size_name']}</p>
+            </div>
+            <div class="mid-sl f-l" style="margin:10px 54px 0px 0px;">
+                <a style="margin-left: 50px;">{$v[goods_buynum]}</a>
+            </div>
+            <p class="mid-yunfei f-l"style="margin-left: 32px;">¥ 0.00</p>
+            <p class="mid-dj f-l" style="margin-left: 20px;">¥ {$v[goods_price]}</p>
+            <p class="mid-je f-l" style="margin:10px 120px 0px 0px;" style="margin-left: 20px;">¥ {$v['goods_buynum']*$v['goods_detail_price']}</p>
+            <div class="mid-chaozuo f-l">
+                <select>
+                    <option>送货上门</option>
+                    <option>快递包邮</option>
+                </select>
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+    </foreach>
+        <div class="info-heji">
+            <p class="f-r">店铺合计(含运费)：<span>¥{$sum}</span></p>
+            <h3 class="f-r">订单号:{$v[order_number]}</h3>
+        </div>
+        <div class="info-tijiao">
+            <p class="p2">
+                您共有积分<span>460</span>可抵<span>4.6元</span>
+                <a href="#">使用</a>
+            </p>
+
+            <p class="p1">实付款：<span>¥ {$sum}</span></p>
+            <button class="btn">提交订单</button>
+        </div>
+    </div>
+</div>
+    </form>
+

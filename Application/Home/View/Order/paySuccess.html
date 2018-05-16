@@ -1,0 +1,45 @@
+<title>支付成功</title>
+<layout name="Layout/layout1"/>
+    <!--内容开始-->
+    <div class="payment w1200">
+    	<div class="payment-hd">
+            <br><br>
+        	<h3 class="success">支付成功</h3>
+        </div>
+
+        <foreach name="orderInfo" item="val">
+        <div class="payment-bd">
+        	<dl class="dl-hd">
+            	<dt><a href="#"><img src="__PUBLIC__/home/upload/{$val[goods_pic]}" width="130" height="130"/> </a></dt>
+                <dd>
+                	<div class="paySuccess_goods"><h3><a href="{:U('Goods/goodsdetail',array('gid'=>$val[goods_id]))}"><span class="paySuccess_goodsname">{$val[goods_name]}·····</span></a></h3></div>
+                    <P>商品分类：{$val[goods_nickname]}</P>
+                </dd>
+                <div style="clear:both;"></div>
+            </dl>
+
+            <ul class="ul-bd">
+             <!--   <foreach name="detail" item="detau">
+                    <foreach name="detau" item="deta">
+                <li><span>价格</span><p><i>¥{$deta[goods_detail_price]}</i></p></li>
+                    </foreach>
+                </foreach>-->
+            	<li><span>规格</span><p>尺码：<span style="color:red;">{$val[goods_size_name]}</span> 颜色：{$val[goods_color_name]}</p></li>
+            	<li><p>数量：<span style="color:red;">{$val[goods_buynum]}</span></p></li>
+            	<li><p>总价：<span style="color:red;">¥{$val[order_price]}</span></p></li>
+                <li><span>收货人</span><p>{$site[site_name]}</p></li>
+                <li><span>联系电话</span><p>{$site[site_mobile]}</p></li>
+            	<li><span>送货至</span><p>{$site[site_area]}{$site[site_ads]}</p></li>
+            	<li><span>卖家名称</span><p>宅客微购</p></li>
+                <li><span>订单号</span><p style="color:red;">{$val[order_number]}</p></li>
+            	<li><span>成交时间</span><p>{$val[order_finishtime]|date='Y-m-d H:i',###}</p></li>
+            </ul>
+
+        </div>
+        </foreach>
+
+
+
+    </div>
+    
+    <!--底部服务-->

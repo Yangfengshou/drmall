@@ -1,0 +1,150 @@
+<layout name="Layout/layout2"/>
+    <div class="personal-r f-r">
+        <form method="post" id="form1" action="{:U('Member/info')}" enctype="multipart/form-data">
+        <div class="personal-right">
+            <div class="personal-r-tit">
+                <h3>个人资料</h3>
+            </div>
+            <div class="data-con">
+                <div class="dt1">
+                    <p class="f-l">当前头像：</p>
+                    <div class="touxiang f-l">
+                        <div class="tu f-l">
+                            <a href="#">
+                                    <img src="__PUBLIC__/upload/info/{$value.member_pic}" id='show'/>
+                            </a>
+                        </div>
+                        <input  id="file" name="pic" onchange="c()" type="file"/>
+                        <div style="clear:both;"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                </div>
+                <div class="dt1">
+                    <p class="dt-p f-l">昵称：</p>
+                    <input type="text" name="username" value="<?=session('mname');?>" readonly/>
+                    <div style="clear:both;"></div>
+                </div>
+                <div class="dt1">
+                    <p class="dt-p f-l">用户名：</p>
+                    <input type="text" name="tname" value="{$value['member_tname']}"/>
+                    <div style="clear:both;"></div>
+                </div>
+                <div class="dt1 dt2">
+                    <p class="dt-p f-l">性别：</p>
+                    <!--<?php echo $_POST['opt']==0?'selected':''; ?>-->
+                    <input type="radio" name="sex" value="男" style="width: 15px;" <?php echo $value['member_sex']=='男'?'checked':'';?>/><span style="font-size: 16px">男</span>
+                    <input type="radio" name="sex" value="女" style="width: 15px;"<?php echo $value['member_sex']=='女'?'checked':'';?>/><span style="font-size: 16px">女</span>
+                    <div style="clear:both;"></div>
+                </div>
+                <div class="dt1">
+                    <p class="dt-p f-l">年龄：</p>
+                    <input type="text" name="age" value="{$value['member_age']}" />
+                    <div style="clear:both;"></div>
+                </div>
+                <div class="dt1 dt3">
+                    <p class="dt-p f-l">手机号：</p>
+                    <input type="text" value="" name="phone" placeholder="请输入正确的手机号" />
+                    <button>获取短信验证码</button>
+                    <div style="clear:both;"></div>
+                </div>
+                <div class="dt1">
+                    <p class="dt-p f-l">验证码：</p>
+                    <input type="text" value="" />
+                    <div style="clear:both;"></div>
+                </div>
+                <div class="dt1">
+                    <p class="dt-p f-l">邮箱：</p>
+                    <input type="text" name="mail" value="{$value['member_mail']}" /><span></span>
+                    <div style="clear:both;"></div>
+                </div>
+                <div class="dt1 dt4">
+                    <p class="dt-p f-l">密码：</p>
+                    <input type="text" name="pwd" placeholder="请输入密码"/>
+                    <input type="button" id="xgpwd" value="修改密码" style="width: 80px;background-color: orange;font-size: 1px;color: #fff"/>
+                    <div style="clear:both;"></div>
+                </div>
+                <input type="hidden">
+                <input class="btn-pst" type="submit" value="保存" />
+            </div>
+            </div>
+        </form>
+        </div>
+    </div>
+    <div style="clear:both;"></div>
+</div>
+<script type="text/javascript">
+    $(function(){
+        jQuery.validator.addMethod("mobile", function(value, element) {
+            var mobileReg = /^1[34578]{1}[0-9]{9}$/;
+            return this.optional(element) || (mobileReg.test(value));
+        }, "请正确填写您的手机号码");
+        $('#form1').validate({
+            //设置验证信息：
+            rules:{
+                mail:{
+                    required:true,
+                    email:true
+                },
+                phone:{
+                    required:true,
+                    mobile:true
+                }
+            },
+            //设置提醒信息：
+            messages:{
+                mail:{
+                    required:"邮箱不能为空",
+                    email:"邮箱格式不正确"
+                },
+                phone:{
+                    required:"电话不能为空",
+                    mobile:"请正确输入您的手机号"
+                }
+            },
+            success: function(label){
+                label.addClass("ok").text("通过验证");
+            },
+            validClass: "ok",
+            errorPlacement:function(error, element){
+                error.insertAfter(element.next());
+            }
+        })
+        /*$(".btn-pst").click(function(){
+            $.post("{:U('Member/MyInfo')}",$("#form1").serialize(),function(data){
+                if(data['status']==1){
+                    layer.msg(data['info'],{icon:6});
+                    location.href="{:U('/Home/Member/info')}";
+                }else{
+                    layer.msg(data['info'],{icon:5})
+                }
+            },'json');
+        });*/
+        $("#xgpwd").click(function(){
+            var password=$('input[name="pwd"]').val();
+            if(password){
+                $.post("{:U('Member/xgpwd')}",{password:password},function(data){
+                    if(data['status']==1){
+                        $('input[name="pwd"]').val('');
+                        layer.msg(data['info'],{icon:6});
+                    }else{
+                        layer.msg(data['info'],{icon:5})
+                    }
+                },'json');
+            }else{
+                layer.msg("密码为空",{icon:5})
+            }
+        })
+    })
+</script>
+<script type="text/javascript">
+    function c () {
+        var r= new FileReader();
+        f=document.getElementById('file').files[0];
+        r.readAsDataURL(f);
+        r.onload=function  (e) {
+            document.getElementById('show').src=this.result;
+        };
+    }
+</script>
+
+

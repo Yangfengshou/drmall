@@ -1,0 +1,15 @@
+<layout name="Layout/layout"/>
+<div class="ms-goods" style="height:500px;">
+    <!--<div class="mallACtive-1"><img src="__PUBLIC__/home/images/mallActive/timg (1).gif"></div>-->
+    <ul class="ms-ul">
+        <foreach name="limitGoods" item="v">
+            <a href="{:U('Goods/goodsdetail',array('gid'=>$v[goods_id],'alive'=>$v[goods_alive]))}"><li class="ms-li">
+                <div class="ms-goods-img">
+                    <img class="ms-img" src="__PUBLIC__/home/upload/index-img/{$v[limit_goodspic]}">
+                    <div class="goods-data1"><span class="ms-span1"><p style="font-size:12px;">{$v[goods_name]}</span><span style="color:red;font-size:15px;font-weight:bold;"><br>￥{$limitGoods[0][goods_alive]==2?$v[limit_goodsprice]:$v[goods_price]}&nbsp;<span style="text-decoration:line-through;font-size:12px;color:#808080;">￥{$v[goods_marketprice]}</span></span></p></div>
+                    <div class="ms-quikly">{$limitGoods[0][goods_alive]==2?立即抢购:''}<span style="color:#808080;">{$limitGoods[0][goods_alive]==2?'':'已结束抢购'}</span></div>
+                </div>
+            </li></a>
+        </foreach>
+        </ul>
+    </div>

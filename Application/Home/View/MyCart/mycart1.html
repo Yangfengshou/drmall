@@ -1,0 +1,130 @@
+<layout name="Layout/layout"/>
+<title>购物车</title>
+<!--内容开始-->
+    <div class="cart-content w1200">
+    	<ul class="cart-tit-nav">
+        	<li class="current"><a href="#">全部商品   21</a></li>
+        	<li><a href="#">降价商品   1</a></li>
+        	<li><a href="#">进口商品   1</a></li>
+            <div style="clear:both;"></div>
+        </ul>
+        <div class="cart-con-tit">
+        	<p class="p1">
+            	<input type="checkbox" value="" name="hobby" class="qx">
+				<span>全选</span>
+            </p>
+            <p class="p2">商品信息</p>
+            <p class="p3">规格</p>
+            <p class="p4">数量</p>
+            <p class="p5">单价（元）</p>
+            <p class="p6">金额（元）</p>
+            <p class="p7">操作</p>
+        </div>
+<form id="mycart_1">
+
+</form>
+
+       	<div class="cart-con-footer">
+        	<div class="quanxuan f-l">
+            	<input type="checkbox" value="" name="hobby" class="qx">
+                <span>全选</span>
+                <a href="#" class="qxdelete">删除</a>
+                <a href="#">加入收藏夹</a>
+                <p>（此处始终在屏幕下方）</p>
+            </div>
+            <div class="jiesuan f-r">
+            	<div class="jshj f-l">
+                	<p>合计（不含运费）</p>
+                	<p class="jshj-p2">
+                    	￥：<span style="font-size:25px;color:red;">0.00</span>
+                    </p>
+                </div>
+                <a><input type="button" id="dosum" class="js-a1 f-l" value="结算"/></a>
+            	<!--<a href="{:U('Order/orderGoodsGrade')}" class="js-a1 f-l">结算</a>-->
+                <div style="clear:both;"></div>
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+    </div>
+
+<!--底部服务-->
+<script>
+    $(function() {
+        $('.delete').click(function () {
+            var gid = $(this).data('id');
+            $.post("{:U('MyCart/delete')}", {gid: gid}, function (data) {
+                if (data['status'] == 1) {
+                    location.href = '{:U("MyCart/mycart")}';
+                } else {
+                    location.href = '{:U("MyCart/mycart")}';
+                }
+
+            }, 'json')
+
+        })
+        $('.qxdelete').click(function () {
+            $.post("{:U('MyCart/qxdelete')}", function (data) {
+                if (data['status'] == 1) {
+                    location.href = '{:U("MyCart/mycart")}';
+                } else {
+                    layer.msg("删除失败");
+                    location.href = '{:U("MyCart/mycart")}';
+                }
+
+            }, 'json')
+
+        })
+
+        //获取对应按钮的id
+        $('#dosum').click(function(){
+            var sum=$('#sum').text();
+            $.post("{:U('MyCart/dosum')}",function(data){
+                if(data['status']==2){
+                    location.href="{:U('Login/login')}" ;
+                }else{
+                    if(sum=0){
+                        return false;
+                    }else{
+                        $.post("{:U('Order/topay')}",$('#form1').serialize(),function(data){
+
+                            /*  if(data['status']==2){
+                             location.href="{:U('Login/login')}" ;
+                             }*/
+                        },'json')
+                    }
+                }
+            },'json')
+        })
+
+    })
+    //分页
+    function getInputPage() {
+        var page = $("#page-num").val();
+        var page_url = decodeURI($("#page-submit").attr("data-page"));
+        page_url = page_url.replace('[PAGE]', page);
+        repage(page_url);
+        return false;
+    }
+    //分页
+    function repage(url) {
+        if(typeof url == 'undefined') url="{:U('',array('p'=>$_GET['p']))}";
+        $.post(url,function(data){
+            $('#mycart_1').html(data);
+        });
+    }
+    //商品
+    $(function(){
+        var gid=$('input[name="gid"]').val();
+        $.post("{:U('MyCart/mycart_1')}",{gid:gid},function(data){
+            $("#mycart_1").html(data);
+        })
+    })
+    //换页
+    $(document).on('click','.page a',function() {
+        var url=this.href
+        $.post(url,function(res){
+            $('#mycart_1').html(res);
+        })
+        return false;
+    })
+</script>

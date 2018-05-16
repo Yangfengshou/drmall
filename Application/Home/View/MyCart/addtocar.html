@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>加入购物车成功</title>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/home/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/home/css/shopping-mall-index.css" />
+    <script type="text/javascript" src="__PUBLIC__/home/js/jquery.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/home/js/zhonglin.js"></script>
+
+</head>
+<layout name="Layout/layout1"/>
+
+<div id="addtocar-box">
+    <h1 id="addtocar-h1">商品已成功加入购物车</h1>
+    <div class="addtocar-img">
+    <a href="{:U('Goods/goodsdetail')}"><img src="__PUBLIC__/home/upload/{$addGoods[0][goods_pic]}" width="250" height="250"></a>
+    </div>
+    <div id="addtocar-div2">
+        <a href="{:U('Order/myorder')}" class="addtocar-a"><span><img src="__PUBLIC__/home/images/logo(2).jpg" width="25px" height="25px"></span>
+        <span id="addtocar-span">{$_SESSION['mname']}</span></a>
+        <p class="addtocar-p"><a href="" id="addtocar-a">已添加商品：{$addGoods[0]['goods_name']}</a></p>
+        <p class="addtocar-p">添加数量：<span style="color: red;">{$_GET['buynum']}&nbsp;</span>件</p>
+        <p class="addtocar-p">颜色：{$color[0][goods_color_name]}</p>
+        <p class="addtocar-p">大小：{$size[0][goods_size_name]}号</p>
+    <div id="addtocar-xj-all">
+        <span style="color:orangered;">小计：￥<span style="font-size:20px;">&nbsp;{$detail[0][goods_detail_price]*$_GET['buynum']}</span></span><br>
+        <span>购物车共有<span style="color:red;">{$cartGoods[0][goods_buynum]}件</span>该商品</span>
+    </div>
+        <a href="{:U('Goods/goodsdetail',array('gid'=>$_GET['gid']))}"><div class="addtocar-fanhui">&lt;返回商品详情</div></a>
+
+        <a href="{:U('MyCart/mycart',array('gid'=>$_GET['gid'],'goods_detail_id'=>$detail[0]['goods_detail_id']))}"><div class="addtocar-mycart">去购物车结算&gt;</div></a>
+    </div>
+</div>
+
+<div class="addtocar-interest">
+    <h style="font-size:17px;color:#808080">您可能感兴趣的商品:</h>
+    <ul id="interest">
+        <li class="interest-goods">
+            <div class="goods-img">
+            <a href="{:U('Goods/goodsdetail')}"><img src="__PUBLIC__/home/upload/83b28236b719c3868a331aee5a19430e.jpg" width="200" height="200"></a>
+            </div>
+<span class="goods"><p class="goods-name"><a class="name-a" href="{:U('Goods/goodsdetail')}">商品名称</a><br><span class="goods-price">￥233</span></p></span>
+        </li>
+        <li class="interest-goods">
+            <div class="goods-img">
+                <a href=""><img src="__PUBLIC__/home/upload/83b28236b719c3868a331aee5a19430e.jpg" width="200" height="200"></a>
+            </div>
+            <span class="goods"><p class="goods-name"><a class="name-a" href="">商品名称</a><br><span class="goods-price">￥233</span></p></span>
+        </li>
+        <li class="interest-goods">
+            <div class="goods-img">
+                <a href=""><img src="__PUBLIC__/home/upload/83b28236b719c3868a331aee5a19430e.jpg" width="200" height="200"></a>
+            </div>
+            <span class="goods"><p class="goods-name"><a class="name-a" href="">商品名称</a><br><span class="goods-price">￥233</span></p></span>
+        </li>
+        <li class="interest-goods">
+            <div class="goods-img">
+                <a href=""><img src="__PUBLIC__/home/upload/83b28236b719c3868a331aee5a19430e.jpg" width="200" height="200"></a>
+            </div>
+            <span class="goods"><p class="goods-name"><a class="name-a" href="">商品名称</a><br><span class="goods-price">￥233</span></p></span>
+        </li>
+        <li class="interest-goods">
+            <div class="goods-img">
+                <a href=""><img src="__PUBLIC__/home/upload/83b28236b719c3868a331aee5a19430e.jpg" width="200" height="200"></a>
+            </div>
+            <span class="goods"><p class="goods-name"><a class="name-a" href="">商品名称</a><br><span class="goods-price">￥233</span></p></span>
+        </li>
+        <li class="interest-goods">
+            <div class="goods-img">
+                <a href=""><img src="__PUBLIC__/home/upload/83b28236b719c3868a331aee5a19430e.jpg" width="200" height="200"></a>
+            </div>
+            <span class="goods"><p class="goods-name"><a class="name-a" href="">商品名称</a><br><span class="goods-price">￥233</span></p></span>
+        </li>
+        <li class="interest-goods">
+            <div class="goods-img">
+                <a href=""><img src="__PUBLIC__/home/upload/83b28236b719c3868a331aee5a19430e.jpg" width="200" height="200"></a>
+            </div>
+            <span class="goods"><p class="goods-name"><a class="name-a" href="">商品名称</a><br><span class="goods-price">￥233</span></p></span>
+        </li>
+        <li class="interest-goods">
+            <div class="goods-img">
+                <a href=""><img src="__PUBLIC__/home/upload/83b28236b719c3868a331aee5a19430e.jpg" width="200" height="200"></a>
+            </div>
+            <span class="goods"><p class="goods-name"><a class="name-a" href="">商品名称</a><br><span class="goods-price">￥233</span></p></span>
+        </li>
+        <li class="interest-goods">
+            <div class="goods-img">
+                <a href=""><img src="__PUBLIC__/home/upload/83b28236b719c3868a331aee5a19430e.jpg" width="200" height="200"></a>
+            </div>
+            <span class="goods"><p class="goods-name"><a class="name-a" href="">商品名称</a><br><span class="goods-price">￥233</span></p></span>
+        </li>
+        <li class="interest-goods">
+            <div class="goods-img">
+                <a href=""><img src="__PUBLIC__/home/upload/83b28236b719c3868a331aee5a19430e.jpg" width="200" height="200"></a>
+            </div>
+            <span class="goods"><p class="goods-name"><a class="name-a" href="">商品名称</a><br><span class="goods-price">￥233</span></p></span>
+        </li>
+    </ul>
+</div>
+
+</html>

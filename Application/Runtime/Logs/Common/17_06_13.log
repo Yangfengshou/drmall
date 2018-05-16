@@ -1,0 +1,24 @@
+[ 2017-06-13T09:35:08+08:00 ] 127.0.0.1 /drmall/index.php/main.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+ERR: 无法加载模块:Main
+
+[ 2017-06-13T09:35:08+08:00 ] 127.0.0.1 /drmall/index.php/left.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+ERR: 无法加载模块:Left
+
+[ 2017-06-13T09:35:08+08:00 ] 127.0.0.1 /drmall/index.php/footer.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+ERR: 无法加载模块:Footer
+
+[ 2017-06-13T09:35:08+08:00 ] 127.0.0.1 /drmall/index.php/top.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+ERR: 无法加载模块:Top
+

@@ -1,0 +1,163 @@
+
+    <title>食品</title>
+
+
+<!--品牌热销-->
+<layout name="Layout/layout"/>
+<div class="brand-sales">
+    <dl>
+        <dd>所有商品>{$cataname[cate_name]}</dd>
+        <div style="clear:both;"></div>
+    </dl>
+</div>
+
+<!--内容↓↑-->
+<div class="shop-page-con w1200">
+    <div class="shop-pg-left f-l" style="width:215px">
+        <div class="shop-left-buttom" style="margin-top:0;">
+            <div class="sp-tit1">
+                <h3>商品推荐</h3>
+            </div>
+            <ul class="shop-left-ul">
+                <li>
+                    <div class="li-top">
+                        <a href="#" class="li-top-tu"><img src="__PUBLIC__/home/images/sp-con-r-tu.gif" /></a>
+                        <p class="jiage"><span class="sp1">￥109</span><span class="sp2">￥209</span></p>
+                    </div>
+                    <p class="miaoshu">德国原装进口Wurenbacher瓦伦冰黑啤5L/桶</p>
+                    <div class="li-md">
+                        <div class="md-l f-l">
+                            <p class="md-l-l f-l" ap="">1</p>
+                            <div class="md-l-r f-l">
+                                <a href="JavaScript:;" class="md-xs" at="">∧</a>
+                                <a href="JavaScript:;" class="md-xx" ab="">∨</a>
+                            </div>
+                            <div style="clear:both;"></div>
+                        </div>
+                        <div class="md-r f-l">
+                            <button class="md-l-btn1">立即购买</button>
+                            <button class="md-l-btn2">加入购物车</button>
+                        </div>
+                        <div style="clear:both;"></div>
+                    </div>
+                    <p class="pingjia">88888评价</p>
+                    <p class="weike">微克宅购自营</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="shop-pg-right f-r">
+        <div class="shop-right-cmp" style="margin-top:0;">
+            <ul class="shop-cmp-l f-l">
+                <li class="current"><a href="#">综合 ↓</a></li>
+                <li><a href="#">销量 ↓</a></li>
+                <li><a href="#">新品 ↓</a></li>
+                <li><a href="#">评价 ↓</a></li>
+                <div style="clear:both;"></div>
+            </ul>
+            <div class="shop-cmp-m f-l">
+                <span>价格</span><input type="text" /><span>-</span><input type="text" />
+            </div>
+            <div class="shop-cmp-r f-l">
+                <ul class="f-l">
+                    <li>
+                        <input type="checkbox" name="hobby" value=""/>
+                        <span>包邮</span>
+                    </li>
+                    <li>
+                        <input type="checkbox" name="hobby" value=""/>
+                        <span>进口</span>
+                    </li>
+                    <li>
+                        <input type="checkbox" name="hobby" value=""/>
+                        <span>仅显示有货</span>
+                    </li>
+                    <li>
+                        <input type="checkbox" name="hobby" value=""/>
+                        <span>满赠</span>
+                    </li>
+                    <li>
+                        <input type="checkbox" name="hobby" value=""/>
+                        <span>满减</span>
+                    </li>
+                    <div style="clear:both;"></div>
+                </ul>
+                <button>确定</button>
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+        <div class="shop-right-con">
+            <ul class="shop-ul-tu shop-ul-tu1"  id="shop_2">
+                <foreach name="res" item="vs">
+                <li>
+                    <div class="li-top">
+                        <a href="#" class="li-top-tu"><img src="__PUBLIC__/home/upload/300/thumb_300_{$vs[goods_pic]}" /></a>
+                        <p class="jiage"><span class="sp1">￥109</span><span class="sp2">￥209</span></p>
+                    </div>
+                    <p class="miaoshu">{:mb_substr($vs['goods_name'],0,12,'utf8')}</p>
+                    <div class="li-md">
+                        <div class="md-l f-l">
+                            <p class="md-l-l f-l" ap="">1</p>
+                            <div class="md-l-r f-l">
+                                <a href="JavaScript:;" class="md-xs" at="">∧</a>
+                                <a href="JavaScript:;" class="md-xx" ab="">∨</a>
+                            </div>
+                            <div style="clear:both;"></div>
+                        </div>
+                        <div class="md-r f-l">
+                            <button class="md-l-btn1">立即购买</button>
+                            <button class="md-l-btn2">加入购物车</button>
+                        </div>
+                        <div style="clear:both;"></div>
+                    </div>
+                    <p class="pingjia">88888评价</p>
+                    <p class="weike">微克宅购自营</p>
+                </li>
+                </foreach>
+            </ul>
+            <!--分页-->
+        </div>
+    </div>
+    <div style="clear:both;"></div>
+</div>
+<!--JQ-->
+<script>
+    //分页
+    function getInputPage() {
+        var page = $("#page-num").val();
+        var page_url = decodeURI($("#page-submit").attr("data-page"));
+        page_url = page_url.replace('[PAGE]', page);
+        repage(page_url);
+        return false;
+    }
+    //分页
+    function repage(url) {
+        if(typeof url == 'undefined') url="{:U('',array('p'=>$_GET['p']))}";
+        $.post(url,function(data){
+            $('#shop_2').html(data);
+        });
+    }
+    //换页
+    $(document).on('click','.page a',function() {
+        var url=this.href
+        $.post(url,{"cate_pid" :num},function(res){
+            $('#shop_2').html(res);
+        })
+        return false;
+    })
+    //商品
+    $(document).on('click','.goodsname',function() {
+        var _this = this;
+        num=$(_this).data('pid')//定义一个全局变量  把获得到的pid的值赋值给它
+        $.post("{:U('Index/shop_2')}",{"cate_pid" :num},function(data){
+            $("#shop_2").html(data);
+        })
+    })
+    //分类
+    $(document).on('click','.catename',function() {
+        var _this = this;
+        $.post("{:U('Index/shop_1')}",{"cate_id" :$(_this).data('id')},function(data){
+            $("#shop_1").html(data);
+        })
+    })
+</script>

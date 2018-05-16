@@ -1,0 +1,18 @@
+<foreach name="adminlist" item="v">
+    <tr>
+        <td style="color:red;font-weight:900;">0000{$v[admin_id]}</td>
+        <input type="hidden" value="{$v[admin_id]}" id="aid">
+        <td>{$v[admin_username]}</td>
+        <td style="font-weight:900;color:#15adff;">{$v[admin_grade]}</td>
+        <td>{$v[admin_name]}</td>
+        <td>{$v[phone_number]}</td>
+        <td>{$v[admin_addtime]|date='Y-m-d',###}</td>
+        <td></td>
+        <td></td>
+        <td>{$v[admin_alive]==1?启用:禁用}</td>
+        <td><a href="" class="tablelink" data-aid="{$v[admin_id]}" data-alive="{$v[admin_alive]}"><img src="__PUBLIC__/admin/images/integral-left-li-p2.gif"/><if condition="($v[admin_alive] eq 1)">禁用<else/>启用</if></a>
+            <a href="{:U('Admin/admin_alter',array('aid'=>$v[admin_id]))}" class="tablelink"><img src="__PUBLIC__/admin/images/integral-left-li-p8.gif"/>编辑</a>
+            <a href="" class="tablelink" id="del" data-alive="2" data-aid="{$v[admin_id]}" onclick="confirm('你确定要删除吗?')"><img src="__PUBLIC__/admin/images/integral-left-li-p7.gif"/>删除</a>
+        </td>
+    </tr>
+</foreach>
